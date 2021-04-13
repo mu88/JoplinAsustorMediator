@@ -12,6 +12,7 @@ namespace JoplinAsustorMediator.Controllers
     {
         private readonly HttpProxyOptions _httpOptions = HttpProxyOptionsBuilder.Instance
             .WithShouldAddForwardedHeaders(false)
+            .WithHttpClientName("CustomHttpClient")
             .WithAfterReceive(async (_, e) =>
             {
                 if (e.StatusCode == HttpStatusCode.Forbidden) e.StatusCode = HttpStatusCode.NotFound;

@@ -1,3 +1,4 @@
+using System.Net.Http;
 using AspNetCore.Proxy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,22 @@ namespace JoplinAsustorMediator
             services.AddProxies();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            if (bool.Parse(Configuration["AppSettings:CustomTlsValidation"]))
+            {
+                var certThumbprint = Configuration["AppSettings:CertThumbprint"];
+                services
+                    .AddHttpClient("CustomHttpClient")
+                    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback =
+                            (_, cert, _, _) => cert.GetCertHashString() == certThumbprint
+                    });
+            }
+            else
+            {
+                services.AddHttpClient("CustomHttpClient");
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
