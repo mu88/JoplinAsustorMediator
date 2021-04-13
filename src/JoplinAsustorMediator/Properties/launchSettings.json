@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:38119/joplin",
+      "applicationUrl": "http://localhost:38119",
       "sslPort": 44331
     }
   },
