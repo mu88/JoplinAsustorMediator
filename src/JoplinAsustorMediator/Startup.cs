@@ -26,7 +26,7 @@ namespace JoplinAsustorMediator
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            if (bool.Parse(Configuration["AppSettings:CustomTlsValidation"]))
+            if (bool.TryParse(Configuration["AppSettings:CustomTlsValidation"], out var customTlsValidation) && customTlsValidation)
             {
                 var certThumbprint = Configuration["AppSettings:CertThumbprint"];
                 services
