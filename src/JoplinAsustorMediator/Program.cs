@@ -15,7 +15,7 @@ namespace JoplinAsustorMediator
         {
             return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((_, config) => { config.AddEnvironmentVariables(); })
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>().UseUrls("http://localhost:5200/"); });
         }
     }
 }
