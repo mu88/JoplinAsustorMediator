@@ -6,10 +6,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["src/JoplinAsustorMediator/JoplinAsustorMediator.csproj", "JoplinAsustorMediator/"]
+COPY ["src/JoplinAsustorMediator/JoplinAsustorMediator.csproj", "src/JoplinAsustorMediator/"]
 RUN dotnet restore "src/JoplinAsustorMediator/JoplinAsustorMediator.csproj"
 COPY . .
-WORKDIR "/src/JoplinAsustorMediator"
+WORKDIR "/src/src/JoplinAsustorMediator"
 RUN dotnet build "JoplinAsustorMediator.csproj" -c Release -o /app/build
 
 FROM build AS publish
