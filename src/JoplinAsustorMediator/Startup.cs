@@ -24,11 +24,11 @@ namespace JoplinAsustorMediator
 
             services.AddProxies();
 
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<AppSettings>(Configuration.GetSection($"{nameof(AppSettings)}"));
 
-            if (bool.TryParse(Configuration["AppSettings:CustomTlsValidation"], out var customTlsValidation) && customTlsValidation)
+            if (bool.TryParse(Configuration[$"{nameof(AppSettings)}:{nameof(AppSettings.CustomTlsValidation)}"], out var customTlsValidation) && customTlsValidation)
             {
-                var certThumbprint = Configuration["AppSettings:CertThumbprint"];
+                var certThumbprint = Configuration[$"{nameof(AppSettings)}:{nameof(AppSettings.CertThumbprint)}"];
                 services
                     .AddHttpClient("CustomHttpClient")
                     .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
