@@ -2,8 +2,7 @@
 FROM ${BASE_IMAGE} AS base
 WORKDIR /app
 
-USER root
-COPY src/JoplinAsustorMediator/root_CA_mu88.cer /usr/local/share/ca-certificates/root_CA_mu88.cer
+COPY src/JoplinAsustorMediator/root_CA_mu88.crt /usr/local/share/ca-certificates/root_CA_mu88.crt
 RUN update-ca-certificates
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
