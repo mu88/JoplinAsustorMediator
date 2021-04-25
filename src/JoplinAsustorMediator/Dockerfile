@@ -16,4 +16,6 @@ RUN dotnet publish "JoplinAsustorMediator.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY src/JoplinAsustorMediator/root_CA_mu88.crt /usr/local/share/ca-certificates
+RUN update-ca-certificates
 ENTRYPOINT ["dotnet", "JoplinAsustorMediator.dll"]
