@@ -2,6 +2,10 @@
 FROM ${BASE_IMAGE} AS base
 WORKDIR /app
 
+COPY src/JoplinAsustorMediator/root_CA_mu88.crt /usr/local/share/ca-certificates/
+USER root
+RUN update-ca-certificates
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["src/JoplinAsustorMediator/JoplinAsustorMediator.csproj", "src/JoplinAsustorMediator/"]
@@ -16,6 +20,4 @@ RUN dotnet publish "JoplinAsustorMediator.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY src/JoplinAsustorMediator/root_CA_mu88.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
 ENTRYPOINT ["dotnet", "JoplinAsustorMediator.dll"]
