@@ -2,7 +2,7 @@
 FROM ${BASE_IMAGE} AS base
 WORKDIR /app
 
-COPY src/JoplinAsustorMediator/root_CA_mu88.crt /usr/local/share/ca-certificates/
+COPY src/JoplinAsustorMediator/root_CA_mu88.cer /usr/local/share/ca-certificates/
 USER root
 RUN update-ca-certificates
 
